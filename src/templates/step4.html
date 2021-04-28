@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mb-5">
+    <div class="text-center" style="width: 83%">
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">Schritt 4 (60%)</div>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+
+    {% if error %}
+        <p class="alert alert-danger">{{ msg['alert'] }}</p>
+    {% else %}
+        <p class="alert alert-success">{{ msg['alert'] }}</p>
+    {% endif %}
+
+    <p>{{ msg['body'] }}</p>
+    <p>{{ msg['hint1'] }}</p>
+    <p>{{ msg['hint2'] }}</p>
+
+    {% if not error %}
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" name="action" value="keep" class="btn btn-primary">Keine weiteren Änderungen vornehmen und fortfahren</button>
+    </div>
+    {% endif %}
+
+    <p>In diesen Fächern können Sie Änderungen vornehmen:</p>
+
+    {% if g.has_geo %}
+        {% include 'abfragen/geographie.html' %}
+    {% endif %}
+
+    {% include 'abfragen/geschichtepolitik.html' %}
+
+    {% if g.profilbuchstabe in ['A', 'B', 'D'] and g.freierlk != 'pae' %}
+        {% include 'abfragen/paedagogik.html' %}
+    {% endif %}
+
+    {% if g.has_psy %}
+        {% include 'abfragen/psychologie.html' %}
+    {% endif %}
+
+    {% if g.profilbuchstabe != 'D' %}
+        {% include 'abfragen/naturwissenschaft.html' %}
+    {% endif %}
+
+    {% if g.freiwilligefremdsprache %}
+        {% include 'abfragen/fremdsprache.html' %}
+    {% endif %}
+
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" name="action" value="retry" class="btn btn-warning">Änderungen übernehmen und nochmals prüfen</button>
+    </div>
+
+</form>
+
+{% endblock %}

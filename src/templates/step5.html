@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mb-5">
+    <div class="text-center" style="width: 83%">
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Schritt 5 (80%)</div>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+
+    <p>Die Wahl der Prüfungsfächer ist nicht final. Sie werden im Halbjahr Q2.1 erneut gefragt, in welchen Fächern Sie sich prüfen lassen wollen.</p>
+    <p>Die jetzige Abfrage der Prüfungsfächer dient jedoch dazu, Ihnen einen Überblick zu verschaffen und kann daher nicht übersprungen werden. Sollten Sie bestimmte Prüfungsfächer, die hier aufgelistet sind, nicht abwählen können, ergibt sich dies aus Ihrer Profilwahl!</p>
+
+    <p>Bitte beachten Sie, dass sie je ein Prüfungsfach in den Aufgabenfeldern 1. - 3. belegen müssen, sowie zwei der drei Kernfächer Deutsch, Englisch und Mathematik.</p>
+
+    {% if g.profilbuchstabe in ['A', 'B', 'C', 'D'] %}
+
+        <p><strong>Schriftliche Prüfung in (LKs):</strong></p>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="pruefung1">1. Prüfungsfach</label>
+            </div>
+            <select class="custom-select" id="pruefung1" name="pruefung1" disabled>
+                <option value="{{g.plk_short}}" selected>{{g.plk_long}}</option>
+          </select>
+            <input type="hidden" value="{{g.plk_short}}" name="pruefung1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="pruefung2">2. Prüfungsfach</label>
+            </div>
+            <select class="custom-select" id="pruefung2" name="pruefung2" disabled>
+                <option value="{{g.flk_short}}" selected>{{g.flk_long}}</option>
+          </select>
+            <input type="hidden" value="{{g.flk_short}}" name="pruefung2">
+        </div>
+
+        <p><strong>Schriftliche oder mündliche Prüfung in:</strong></p>
+        {{ select_group_field('pruefung3', g.pruefung_possible, label='Prüfungsfach') }}
+        {{ select_group_field('pruefung4', g.pruefung_possible, label='Prüfungsfach') }}
+
+    {% elif g.profilbuchstabe == 'E' %}
+
+        <p><strong>Schriftliche und Praktische Prüfungen in (LKs):</strong></p>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="pruefung1a">1. Prüfungsfach</label>
+            </div>
+            <select class="custom-select" id="pruefung1a" name="pruefung1a" disabled>
+                <option value="spx" selected>Sportpraxis</option>
+          </select>
+            <input type="hidden" value="spx" name="pruefung1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="pruefung1b">2. Prüfungsfach</label>
+            </div>
+            <select class="custom-select" id="pruefung1b" name="pruefung1b" disabled>
+                <option value="sth" selected>Sporttheorie</option>
+          </select>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="pruefung2">3. Prüfungsfach</label>
+            </div>
+            <select class="custom-select" id="pruefung2" name="pruefung2" disabled>
+                <option value="{{g.flk_short}}" selected>{{g.flk_long}}</option>
+          </select>
+            <input type="hidden" value="{{g.flk_short}}" name="pruefung2">
+        </div>
+
+        <p><strong>Schriftliche oder mündliche Prüfung in:</strong></p>
+        {% if g.flk_short == 'mat' %}
+            {{ select_group_field('pruefung3', g.pruefung_possible, label='Prüfungsfach') }}
+        {% else %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="pruefung3">Prüfungsfach</label>
+                </div>
+                <select class="custom-select" id="pruefung3" name="pruefung3" disabled>
+                    <option value="mat" selected>Mathe</option>
+              </select>
+                <input type="hidden" value="mat" name="pruefung3">
+            </div>
+        {% endif %}
+        {{ select_group_field('pruefung4', g.pruefung_possible, label='Prüfungsfach') }}
+
+    {% endif %}
+
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" class="btn btn-success">Ü-Plan erstellen</button>
+    </div>
+
+</form>
+
+{% endblock %}

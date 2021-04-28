@@ -1,0 +1,54 @@
+/* inconsolata-regular - latin */
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/inconsolata-v18-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Inconsolata Regular'), local('Inconsolata-Regular'),
+       url('../fonts/inconsolata-v18-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/inconsolata-v18-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/inconsolata-v18-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/inconsolata-v18-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/inconsolata-v18-latin-regular.svg#Inconsolata') format('svg'); /* Legacy iOS */
+}
+
+#logo {
+    font-family: 'Inconsolata';
+    white-space: pre;
+    line-height: 1;
+    text-align: left;
+    margin: 0 auto;
+    width: 50%;
+    position: relative;
+}
+.colophon {
+    line-height: 0.7em;
+    width: 40rem;
+    text-align: center;
+    font-size: 0.75em;
+    position: absolute;
+    bottom: 3.5rem;
+    left: 0;
+}
+#session-out, #session2-out {
+    font-family: 'Inconsolata';
+    line-height: 1;
+    font-size: 0.8em;
+}
+
+#step4 .card.mt-5 {
+    margin-top: 2rem !important;
+}
+#step4 .card-header .fach {
+    font-weight: bold;
+}
+#step4 .card-header {
+    cursor: pointer;
+}
+#step4 .card-body {
+    display: none;
+}
+
+#error503 {
+    background: #aaa;
+}

@@ -1,0 +1,30 @@
+<div class="card mt-5">
+    <div class="card-header">
+        Bitte geben Sie Informationen zur Wahl von <span class="fach">Geschichte und Politik</span> an:
+    </div>
+    <div class="card-body" id="card-gespol">
+
+        {% if g.profilbuchstabe == 'A' or g.profilbuchstabe == 'B' %}
+
+            {{ radio_field('polq1', 'Möchten Sie das Fach Politik in der Q1 Phase weiterhin belegen?') }}
+            {{ radio_field('polq2', 'Möchten Sie das Fach Politik auch in der Q2 Phase belegen?', group_id='polq2-group', hidden='True') }}
+
+        {% elif g.profilbuchstabe == 'C' or g.profilbuchstabe == 'D' %}
+
+            {{ radio_field('gesq1', 'Möchten Sie das Fach Geschichte in der Q1 Phase weiterhin belegen?') }}
+            {{ radio_field('gesq2', 'Möchten Sie das Fach Geschichte auch in der Q2 Phase belegen?', group_id='gesq2-group', hidden='True') }}
+
+        {% elif g.profilbuchstabe == 'E' %}
+
+            <p>Bitte bachten Sie, dass Sie entweder Geschichte in der Q1-Phase oder Politik in der Q1 und der Q2-Phase belegen müssen!</p>
+
+            {{ radio_field('gesq1', 'Möchten Sie das Fach Geschichte in der Q1 Phase weiterhin belegen?') }}
+            {{ radio_field('gesq2', 'Möchten Sie das Fach Geschichte auch in der Q2 Phase belegen?', group_id='gesq2-group', hidden='True') }}
+
+            {{ radio_field('polq1', 'Möchten Sie das Fach Politik in der Q1 Phase weiterhin belegen?') }}
+            {{ radio_field('polq2', 'Möchten Sie das Fach Politik auch in der Q2 Phase belegen?', group_id='polq2-group', hidden='True') }}
+
+        {% endif %}
+
+    </div>
+</div>

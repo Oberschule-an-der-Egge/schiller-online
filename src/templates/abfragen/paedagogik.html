@@ -1,0 +1,11 @@
+<div class="card mt-5">
+    <div class="card-header">
+        Bitte geben Sie Informationen zur Wahl von <span class="fach">Pädagogik</span> an:
+    </div>
+    <div class="card-body" id="card-pae">
+
+        {{ radio_field('paeq1', 'Möchten Sie das Fach Pädagogik in der Q1-Phase weiterhin belegen?') }}
+        {{ radio_field('paeq2', 'Möchten Sie das Fach Pädagogik in der Q2-Phase weiterhin belegen?', group_id='paeq2-group', hidden='True') }}
+
+    </div>
+</div>

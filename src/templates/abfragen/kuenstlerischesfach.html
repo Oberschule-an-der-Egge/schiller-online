@@ -1,0 +1,14 @@
+<div class="card mt-5">
+    <div class="card-header">
+        Bitte geben Sie Informationen zur Wahl der künstlerisch-musischen Fächer an:
+    </div>
+    <div class="card-body" id="card-kunst">
+
+        {{ select_field('kuenstlerischesfach_e11', {'kun':'Kunst', 'mus':'Musik', 'dar':'Darstellendes Spiel'}, question='Welches künstlerisch-musische Fach haben Sie im 1. Halbjahr der E-Phase belegt?', small='bzw. seit den Herbstferien im 1. Halbjahr der E-Phase') }}
+
+        {% if g.profilbuchstabe != 'A' %}
+            {{ select_field('kuenstlerischesfach_e12', {'kun':'Kunst', 'mus':'Musik', 'dar':'Darstellendes Spiel'}, question='Welches künstlerisch-musische Fach haben Sie im 2. Halbjahr der E-Phase belegt?') }}
+        {% endif %}
+
+    </div>
+</div>

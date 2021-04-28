@@ -1,0 +1,15 @@
+# This file lists all the required external modules that need to be installed with pip.
+
+# Infrastructure
+flask
+redis
+
+# Creating Outputs
+xlsxwriter
+weasyprint
+
+# Testing
+pytest
+pytest-cov
+fakeredis
+helium

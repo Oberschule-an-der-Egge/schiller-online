@@ -1,0 +1,14 @@
+<div class="card mt-5">
+    <div class="card-header">
+        Bitte geben Sie Informationen zur Wahl von <span class="fach">Geographie</span> an:
+    </div>
+    <div class="card-body" id="card-geo">
+
+        {{ radio_field('geoe1', 'Haben Sie das Fach Geographie im 1. Halbjahr der E-Phase belegt?', small='bzw. seit den Herbstferien im 1. Halbjahr der E-Phase') }}
+        {{ radio_field('geoe2', 'Haben Sie das Fach Geographie im 2. Halbjahr der E-Phase belegt?') }}
+
+        {{ radio_field('geoq1', 'Möchten Sie das Fach Geographie in der Q1-Phase weiterhin belegen?', group_id='geoq1-group', hidden='True') }}
+        {{ radio_field('geoq2', 'Möchten Sie das Fach Geographie in der Q2-Phase weiterhin belegen?', group_id='geoq2-group', hidden='True') }}
+
+    </div>
+</div>

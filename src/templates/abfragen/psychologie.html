@@ -1,0 +1,14 @@
+<div class="card mt-5">
+    <div class="card-header">
+        Bitte geben Sie Informationen zur Wahl von <span class="fach">Psychologie</span> an:
+    </div>
+    <div class="card-body" id="card-psy">
+
+        {{ radio_field('psye1', 'Haben Sie das Fach Psychologie im 1. Halbjahr der E-Phase belegt?', small='bzw. seit den Herbstferien im 1. Halbjahr der E-Phase') }}
+        {{ radio_field('psye2', 'Haben Sie das Fach Psychologie im 2. Halbjahr der E-Phase belegt?') }}
+
+        {{ radio_field('psyq1', 'Möchten Sie das Fach Psychologie in der Q1-Phase weiterhin belegen?', group_id='psyq1-group', hidden='True') }}
+        {{ radio_field('psyq2', 'Möchten Sie das Fach Psychologie in der Q2-Phase weiterhin belegen?', group_id='psyq2-group', hidden='True') }}
+
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="card mt-5">
+    <div class="card-header">
+        Bitte geben Sie Informationen zur Wahl der <span class="fach">Fremdsprache</span> an:
+    </div>
+    <div class="card-body" id="card-sprache">
+
+        {{ radio_field('belegverpflichtung', 'Müssen Sie eine zweite Fremdsprache belegen?') }}
+        {{ radio_field('freiwillig', 'Haben Sie freiwillig eine zweite Fremdsprache belegt?', hidden=True, group_id='freiwillig-group') }}
+        {{ select_field('fremdsprache', {'fra':'Französisch', 'lat':'Latein', 'spa':'Spanisch', 'rus':'Russisch', 'tur':'Türkisch'}, question='Welche Sprache haben Sie neu angefangen?', group_id='fremdsprache-group', disabled=True ) }}
+        {{ radio_field('anfaenger', 'Haben Sie die Sprache neu angefangen oder setzen Sie Ihre zweite Fremdsprache fort?', options={'anfaenger':'Sprach-Anfänger', 'fortsetzer':'Sprach-Fortsetzer'}, hidden=True, group_id='anfaenger-group') }}
+
+    </div>
+</div>

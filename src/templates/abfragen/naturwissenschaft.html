@@ -1,0 +1,67 @@
+<div class="card mt-5">
+    <div class="card-header">
+        Bitte geben Sie Informationen zur Belegung der <span class="fach">Naturwissenschaften</span> an:
+    </div>
+    <div class="card-body" id="card-nawi">
+        <div class="row">
+            <div class="col">
+                <label>Nennen Sie die beiden Naturwissenschaften, die Sie im 1. Halbjahr der E-Phase belegt haben.<br /><small class="text-muted">bzw. seit den Herbstferien im 1. Halbjahr der E-Phase</small> </label>
+            </div>
+        </div>
+
+        <div class="form-row mb-3">
+            <div class="col">
+                <!-- For E11 -->
+                {{ select_field('e11_nw1', {'bio':'Biologie', 'phy':'Physik', 'che':'Chemie'}, label='NaWi 1') }}
+            </div>
+            <div class="col">
+                 <!-- For E11 -->
+                {{ select_field('e11_nw2', {'bio':'Biologie', 'phy':'Physik', 'che':'Chemie'}, label='NaWi 2') }}
+            </div>
+        </div>
+
+        {% if g.profilbuchstabe == 'A' %}
+            <!-- For E12, Q11, Q12, Q21, Q22 -->
+            {{ select_field('e12_nw1', {'bio':'Biologie', 'phy':'Physik', 'che':'Chemie'}, question='Welche Naturwissenschaft haben Sie im 2. Halbjahr der E-Phase belegt, die sie bis zum Abitur fortsetzen möchten?') }}
+            <!-- For E12 -->
+            {{ select_field('e12_nw2', {'bio':'Biologie', 'phy':'Physik', 'che':'Chemie'}, question='Welche weitere Naturwissenschaft haben Sie im 2. Halbjahr der E-Phase belegt?') }}
+
+        {% elif g.profilbuchstabe == 'D' %}
+            <!-- Automatically assign Biologie and Chemie without asking -->
+
+        {% else %}
+            <!-- For E12 -->
+            {{ select_field('e12_nw2', {'phy':'Physik', 'che':'Chemie'}, question='Welche Naturwissenschaft haben Sie neben Biologie im zweiten Halbjahr der E-Phase belegt?') }}
+
+        {% endif %}
+
+        <!-- For Q11, Q12 -->
+
+        <div class="form-group mb-4" id="q11_nw2_group" style="display:none;">
+            <label>Möchten Sie <span id="q11_nw2_text">[Naturwissenschaft]</span> auch in der Q1-Phase belegen?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q11_nw2" id="q11_nw2_1" value="ja" {% if request.form.get('q11_nw2') == 'ja' %}checked{% endif %}>
+                <label class="form-check-label" for="q11_nw2_1">Ja</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q11_nw2" id="q11_nw2_2" value="nein" {% if request.form.get('q11_nw2') == 'ja' %}checked{% endif %}>
+                <label class="form-check-label" for="q11_nw2_2">Nein</label>
+            </div>
+        </div>
+
+        <!-- For Q21, Q22 -->
+
+        <div class="form-group mb-4" id="q21_nw2_group" style="display: none">
+            <label>Möchten Sie <span id="q21_nw2_text">[Naturwissenschaft]</span> auch in der Q2-Phase belegen?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q21_nw2" id="q21_nw2_1" value="ja" {% if request.form.get('q11_nw2') == 'ja' %}checked{% endif %}>
+                <label class="form-check-label" for="q21_nw2_1">Ja</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q21_nw2" id="q21_nw2_2" value="nein" {% if request.form.get('q11_nw2') == 'ja' %}checked{% endif %}>
+                <label class="form-check-label" for="q21_nw2_2">Nein</label>
+            </div>
+        </div>
+
+    </div>
+</div>

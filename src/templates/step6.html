@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p class="alert alert-success">Ihr Ü-Plan wurde erfolgreich erzeugt!</p>
+
+<p>Sie können den fertigen Ü-Plan nun ansehen und als PDF herunterladen. Bitte überprüfen Sie, ob die Daten korrekt eingetragen wurden. Wenn dies der Fall ist, drucken Sie die Datei bitte in zweifacher Ausfertigung aus. Ein Exemplar ist für Ihre Unterlagen bestimmt. Senden Sie einen Scan des <strong>unterschriebenen</strong> Plans per Mail an:</p>
+<p class="text-center"><strong>{{g.recipient}}</strong></p>
+<div class="mt-5 mb-5">
+    <p class="text-center"><a class="btn btn-primary" href="{{g.download_pdf}}">Ü-Plan als PDF herunterladen</a></p>
+    <p class="text-center"><a class="btn btn-secondary" href="{{request.url_root}}output" target="_blank">Ü-Plan ansehen</a></p>
+</div>
+
+{% endblock %}

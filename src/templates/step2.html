@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mb-5">
+    <div class="text-center" style="width: 83%">
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Schritt 2 (20%)</div>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+
+    {% include 'abfragen/fremdsprache.html' %}
+
+    {% include 'abfragen/kuenstlerischesfach.html' %}
+
+    {% include 'abfragen/naturwissenschaft.html' %}
+    
+    <div id="iamreallyspecial" class="card mt-5" style="display: none">
+        <div class="card-header">
+            Bitte geben Sie an, ob sie einen Sonderstatus wünschen:
+        </div>
+
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="iamspecial">Wer bist du denn?</label>
+                </div>
+                <select class="custom-select" id="iamspecial" name="iamspecial">
+                    <option value="">Auswählen...</option>
+                    <option value="jule">Mein Name ist Jule.</option>
+                    <option value="rebekka">Mein Name ist Rebekka.</option>
+                    <option value="">Nein, bloß nicht, ich bin niemand!</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" class="btn btn-primary">Weiter zu Schritt 3</button>
+    </div>
+
+</form>
+
+{% endblock %}

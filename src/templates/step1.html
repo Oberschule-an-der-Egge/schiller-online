@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p class="lead text-center mb-5">Guten Tag und Herzlich Willkommen zur Erstellung Ihres Übersichtsplans!</p>
+
+<form method="post">
+
+    {{ text_field('vorname') }}
+    {{ text_field('nachname') }}
+    {{ select_field('klasse', {'a':'20a', 'b':'20b', 'c':'20c', 'd':'20d'}) }}
+
+
+    <div class="card mt-5">
+        <div class="card-header">
+            Bitte geben Sie an, welche Wahl Sie für die Q-Phase getroffen haben:
+        </div>
+        <div class="card-body">
+
+            {{ select_field('profilbuchstabe', {'A':'A - Deutsch', 'B':'B - Englisch', 'C':'C - Pädagogik', 'D':'D - Biologie', 'E':'E - Sport'}, 'Profil') }}
+            {{ select_field('freierlk', {'deu':'Deutsch', 'eng':'Englisch', 'mat':'Mathe', 'pae':'Pädagogik'}, 'Freier LK') }}
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-header">
+            Bitte geben Sie Informationen zu Ihrem Schulabschluss an:
+        </div>
+        <div class="card-body">
+
+                {{ radio_field('msa', 'Haben Sie den MSA (=Mittleren Schulabschluss) erfolgreich abgelegt?', {'ja':'Ja', 'nein':'Nein'}) }}
+                {{ radio_field('pflichtstundenzahl', 'Sind Sie aus der 9. Klasse oder aus der 10. Klasse in die E-Phase versetzt worden?', {'g8':'Nach der 9. Klasse (G8)', 'g9':'Nach der 10. Klasse (G9)'}, 'Wenn Sie z.B. eine Oberschule bis zur 10. Klasse besucht haben, wählen Sie G9 (9-jähriges Gymnasium).') }}
+
+        </div>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" class="btn btn-primary">Weiter zu Schritt 2</button>
+    </div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% from "macros.html" import text_field, select_field, select_group_field, radio_field %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SCHILLER - Ü-Plan Erstellung</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/schiller-fonts.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/schiller.js') }}"></script>
+    {% if session['iamspecial'] %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/iamspecial.css') }}">
+    {% endif%}
+</head>
+<body id="{{ request.endpoint[5:] }}">
+
+<div class="container">
+    <div class="row justify-content-center mt-4 mb-5">
+        <div class="col text-center">
+            <div id="logo">
+##############################################################################
+#          _________        .__     .__ .__   .__                   ™        #
+#         /   _____/  ____  |  |__  |__||  |  |  |    ____  _______          #
+#         \_____  \  / ___\ |  |  \ |  ||  |  |  |   / __ \ \_  __ \         #
+#         /        \ \  \__ |   Y  \|  ||  |__|  |__|  ___/  |  | \/         #
+#        /________ /  \__ _||___|__/|__||____/|____/ \___ _> |__|            #
+#                                                                            #
+#                      Die Ü-Plan Erstellungssoftware                        #
+#                                                                            #
+#                                                                            #
+#                                                                            #
+#                                                                            #
+##############################################################################
+<div class="colophon">Concept, Logic, Commandlinetools by C. Driebe; Webdevelopment by C. Macht<br/>
+    Version {{ version }} // <a href="https://github.com/Oberschule-an-der-Egge/schiller-online">auf github ansehen</a></div>
+            </div>
+        </div>
+    </div>
+
+    {% for message in get_flashed_messages() %}
+    <div class="row justify-content-center">
+        <div class="col-5 alert alert-warning">{{ message }}</div>
+    </div>
+  {% endfor %}
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

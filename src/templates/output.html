@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schiller Output</title>
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+
+    <style>
+        @media print{
+            @page {size: landscape}
+        }
+
+        body {
+            font-family: 'Verdana', 'Calibri', 'Arial', sans-serif;
+        }
+        #header, #footer {
+            /*width: 56.6rem;*/
+            width: 60rem;
+            overflow: hidden;
+            margin: 0;
+        }
+        #footer {
+            margin-top: 4em;
+        }
+        #sign {
+            clear: both;
+            overflow: hidden;
+        }
+        #sign-student, #sign-parent {
+            width: 25rem;
+            border-top: 1px solid black;
+            padding-top: 0.5em;
+            font-size: 0.8rem;
+        }
+        #sign-student {
+            float: left;
+        }
+        #sign-parent {
+            float: right;
+        }
+        #schuelername {
+            float: right;
+            font-size: 1.5rem;
+            text-align: right;
+        }
+        #title {
+            float: left;
+        }
+        #title h1 {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        #msa {
+            clear: right;
+            float: left;
+        }
+        #klasse {
+            float: right;
+        }
+        table {
+            margin-top: 1.5em;
+        }
+        table, td {
+            clear: both;
+            border-collapse: collapse;
+            border: 1px solid black;
+            text-align: center;
+        }
+        tr:first-child {
+            border-top: 3px solid black;
+        }
+        tr:last-child {
+            border-bottom: 3px solid black;
+        }
+        tr {
+            border-left: 3px solid black;
+            border-right: 3px solid black;
+        }
+        .border {
+            border-left: 3px solid black;
+        }
+        .border-all {
+            border: 3px solid black;
+        }
+        td {
+            padding: 0.1em 0.5em 0.1em 0.5em;
+        }
+        #faecher {
+            height: 5em;
+        }
+        #faecher td {
+            /*text-orientation: sideways;*/
+            vertical-align: bottom;
+            padding: 0 0.25em 0 0.25em;
+            /*width: 1em;*/
+        }
+        #faecher td div {
+            /*writing-mode: vertical-lr;*/
+            /*writing-mode: sideways-lr;*/
+            transform: rotate(270deg);
+            transform-origin: top left;
+            margin-bottom: -1em;
+            text-align: left;
+            width: 1em;
+            font-size: 0.9rem;
+        }
+        .spacer {
+            height: 1.8em;
+        }
+        .right {
+            text-align: right;
+            padding-right: 1em;
+        }
+        #generator {
+            clear: both;
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body id="output">
+
+
+<div id="header">
+    <div id="title">
+        <h1>Übersichtsplan für die Schullaufbahn  - Profil {{g.profilbuchstabe}} - Jg. {{g.jahrgang}}</h1>
+    </div>
+    <div id="schuelername">{{g.schuelername}}</div>
+
+    <div id="msa">
+        {% if g.msa %}
+        mit MSA
+        {% else %}
+        ohne MSA
+        {% endif %}
+    </div>
+
+    <div id="klasse">
+        Klasse: {{g.jahrgang}}{{g.klasse}}
+    </div>
+</div>
+
+<div style="clear: both"></div>
+
+<table>
+    <tr>
+        <td rowspan="2">Leistungsfach<br/>Grundfach</td>
+        <td colspan="10" class="border"><strong>Aufgabenfeld I</strong></td>
+        <td colspan="6" class="border"><strong>Aufgabenfeld II</strong></td>
+        <td colspan="4" class="border"><strong>Aufg.feld III</strong></td>
+        <td class="border"><strong>o.A.</strong></td>
+        <td colspan="2" class="border"><strong>Sport</strong></td>
+        <td colspan="3" class="border"><strong>Lernzeit</strong></td>
+        <td rowspan="2" class="border"><strong>Stunden-<br/>summe</strong></td>
+    </tr>
+    <tr id="faecher">
+        <td class="border"><div>Deu</div></td>
+        <td><div>Eng</div></td>
+        <td><div>Fra</div></td>
+        <td><div>Lat</div></td>
+        <td><div>Spa</div></td>
+        <td><div>Rus</div></td>
+        <td><div>Tue</div></td>
+        <td><div>Dar</div></td>
+        <td><div>Kun</div></td>
+        <td><div>Mus</div></td>
+        <td class="border"><div>Ges</div></td>
+        <td><div>Pol</div></td>
+        <td><div>Geo</div></td>
+        <td><div>Pae</div></td>
+        <td><div>Psy</div></td>
+        <td><div>Rel</div></td>
+        <td class="border"><div>Mat</div></td>
+        <td><div>Phy</div></td>
+        <td><div>Che</div></td>
+        <td><div>Bio</div></td>
+        <td class="border"><div>Inf</div></td>
+        <td class="border"><div>Praxis</div></td>
+        <td><div>Theorie</div></td>
+        <td class="border"><div>Methoden</div></td>
+        <td><div>Selbstlern</div></td>
+        <td><div>Projekt</div></td>
+    </tr>
+    <tr class="spacer">
+        <td colspan="28"></td>
+    </tr>
+    <tr>
+        <td><strong>E<sub>1</sub></strong></td>
+        <td class="border">{{g.raster['Aufgabenfeld I']['Deutsch']['E11'] if g.raster['Aufgabenfeld I']['Deutsch']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Englisch']['E11'] if g.raster['Aufgabenfeld I']['Englisch']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Französisch']['E11'] if g.raster['Aufgabenfeld I']['Französisch']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Latein']['E11'] if g.raster['Aufgabenfeld I']['Latein']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Spanisch']['E11'] if g.raster['Aufgabenfeld I']['Spanisch']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Russisch']['E11'] if g.raster['Aufgabenfeld I']['Russisch']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Türkisch']['E11'] if g.raster['Aufgabenfeld I']['Türkisch']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Darstellendes Spiel']['E11'] if g.raster['Aufgabenfeld I']['Darstellendes Spiel']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Kunst']['E11'] if g.raster['Aufgabenfeld I']['Kunst']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Musik']['E11'] if g.raster['Aufgabenfeld I']['Musik']['E11']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld II']['Geschichte']['E11'] if g.raster['Aufgabenfeld II']['Geschichte']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Politik']['E11'] if g.raster['Aufgabenfeld II']['Politik']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Geographie']['E11'] if g.raster['Aufgabenfeld II']['Geographie']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Pädagogik']['E11'] if g.raster['Aufgabenfeld II']['Pädagogik']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Psychologie']['E11'] if g.raster['Aufgabenfeld II']['Psychologie']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Religion']['E11'] if g.raster['Aufgabenfeld II']['Religion']['E11']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld III']['Mathe']['E11'] if g.raster['Aufgabenfeld III']['Mathe']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Physik']['E11'] if g.raster['Aufgabenfeld III']['Physik']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Chemie']['E11'] if g.raster['Aufgabenfeld III']['Chemie']['E11']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Biologie']['E11'] if g.raster['Aufgabenfeld III']['Biologie']['E11']}}</td>
+        <td class="border">{{g.raster['o. A.']['Informatik']['E11'] if g.raster['o. A.']['Informatik']['E11']}}</td>
+        <td class="border">{{g.raster['Sport']['Praxis']['E11'] if g.raster['Sport']['Praxis']['E11']}}</td>
+        <td>{{g.raster['Sport']['Theorie']['E11'] if g.raster['Sport']['Theorie']['E11']}}</td>
+        <td class="border">{{g.raster['Lernzeit']['Methoden']['E11'] if g.raster['Lernzeit']['Methoden']['E11']}}</td>
+        <td>{{g.raster['Lernzeit']['Selbstlernzeit']['E11'] if g.raster['Lernzeit']['Selbstlernzeit']['E11']}}</td>
+        <td>{{g.raster['Lernzeit']['Projektstunden']['E11'] if g.raster['Lernzeit']['Projektstunden']['E11']}}</td>
+        <td class="border">{{g.stundensumme['e11']}}</td>
+    </tr>
+    <tr>
+        <td><strong>E<sub>2</sub></strong></td>
+        <td class="border">{{g.raster['Aufgabenfeld I']['Deutsch']['E12'] if g.raster['Aufgabenfeld I']['Deutsch']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Englisch']['E12'] if g.raster['Aufgabenfeld I']['Englisch']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Französisch']['E12'] if g.raster['Aufgabenfeld I']['Französisch']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Latein']['E12'] if g.raster['Aufgabenfeld I']['Latein']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Spanisch']['E12'] if g.raster['Aufgabenfeld I']['Spanisch']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Russisch']['E12'] if g.raster['Aufgabenfeld I']['Russisch']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Türkisch']['E12'] if g.raster['Aufgabenfeld I']['Türkisch']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Darstellendes Spiel']['E12'] if g.raster['Aufgabenfeld I']['Darstellendes Spiel']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Kunst']['E12'] if g.raster['Aufgabenfeld I']['Kunst']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Musik']['E12'] if g.raster['Aufgabenfeld I']['Musik']['E12']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld II']['Geschichte']['E12'] if g.raster['Aufgabenfeld II']['Geschichte']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Politik']['E12'] if g.raster['Aufgabenfeld II']['Politik']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Geographie']['E12'] if g.raster['Aufgabenfeld II']['Geographie']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Pädagogik']['E12'] if g.raster['Aufgabenfeld II']['Pädagogik']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Psychologie']['E12'] if g.raster['Aufgabenfeld II']['Psychologie']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Religion']['E12'] if g.raster['Aufgabenfeld II']['Religion']['E12']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld III']['Mathe']['E12'] if g.raster['Aufgabenfeld III']['Mathe']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Physik']['E12'] if g.raster['Aufgabenfeld III']['Physik']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Chemie']['E12'] if g.raster['Aufgabenfeld III']['Chemie']['E12']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Biologie']['E12'] if g.raster['Aufgabenfeld III']['Biologie']['E12']}}</td>
+        <td class="border">{{g.raster['o. A.']['Informatik']['E12'] if g.raster['o. A.']['Informatik']['E12']}}</td>
+        <td class="border">{{g.raster['Sport']['Praxis']['E12'] if g.raster['Sport']['Praxis']['E12']}}</td>
+        <td>{{g.raster['Sport']['Theorie']['E12'] if g.raster['Sport']['Theorie']['E12']}}</td>
+        <td class="border">{{g.raster['Lernzeit']['Methoden']['E12'] if g.raster['Lernzeit']['Methoden']['E12']}}</td>
+        <td>{{g.raster['Lernzeit']['Selbstlernzeit']['E12'] if g.raster['Lernzeit']['Selbstlernzeit']['E12']}}</td>
+        <td>{{g.raster['Lernzeit']['Projektstunden']['E12'] if g.raster['Lernzeit']['Projektstunden']['E12']}}</td>
+        <td class="border">{{g.stundensumme['e12']}}</td>
+    </tr>
+    <tr class="spacer">
+        <td colspan="27" class="right">Stundensumme E-Phase (mind. <strong>70 h</strong>)</td>
+        <td class="border-all">{{g.stundensumme['e_phase']}}</td>
+    </tr>
+    <tr>
+        <td><strong>Q<sub>1.1</sub></strong></td>
+        <td class="border">{{g.raster['Aufgabenfeld I']['Deutsch']['Q11'] if g.raster['Aufgabenfeld I']['Deutsch']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Englisch']['Q11'] if g.raster['Aufgabenfeld I']['Englisch']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Französisch']['Q11'] if g.raster['Aufgabenfeld I']['Französisch']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Latein']['Q11'] if g.raster['Aufgabenfeld I']['Latein']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Spanisch']['Q11'] if g.raster['Aufgabenfeld I']['Spanisch']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Russisch']['Q11'] if g.raster['Aufgabenfeld I']['Russisch']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Türkisch']['Q11'] if g.raster['Aufgabenfeld I']['Türkisch']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q11'] if g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Kunst']['Q11'] if g.raster['Aufgabenfeld I']['Kunst']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Musik']['Q11'] if g.raster['Aufgabenfeld I']['Musik']['Q11']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld II']['Geschichte']['Q11'] if g.raster['Aufgabenfeld II']['Geschichte']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Politik']['Q11'] if g.raster['Aufgabenfeld II']['Politik']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Geographie']['Q11'] if g.raster['Aufgabenfeld II']['Geographie']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Pädagogik']['Q11'] if g.raster['Aufgabenfeld II']['Pädagogik']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Psychologie']['Q11'] if g.raster['Aufgabenfeld II']['Psychologie']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Religion']['Q11'] if g.raster['Aufgabenfeld II']['Religion']['Q11']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld III']['Mathe']['Q11'] if g.raster['Aufgabenfeld III']['Mathe']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Physik']['Q11'] if g.raster['Aufgabenfeld III']['Physik']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Chemie']['Q11'] if g.raster['Aufgabenfeld III']['Chemie']['Q11']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Biologie']['Q11'] if g.raster['Aufgabenfeld III']['Biologie']['Q11']}}</td>
+        <td class="border">{{g.raster['o. A.']['Informatik']['Q11'] if g.raster['o. A.']['Informatik']['Q11']}}</td>
+        <td class="border">{{g.raster['Sport']['Praxis']['Q11'] if g.raster['Sport']['Praxis']['Q11']}}</td>
+        <td>{{g.raster['Sport']['Theorie']['Q11'] if g.raster['Sport']['Theorie']['Q11']}}</td>
+        <td class="border">{{g.raster['Lernzeit']['Methoden']['Q11'] if g.raster['Lernzeit']['Methoden']['Q11']}}</td>
+        <td>{{g.raster['Lernzeit']['Selbstlernzeit']['Q11'] if g.raster['Lernzeit']['Selbstlernzeit']['Q11']}}</td>
+        <td>{{g.raster['Lernzeit']['Projektstunden']['Q11'] if g.raster['Lernzeit']['Projektstunden']['Q11']}}</td>
+        <td class="border">{{g.stundensumme['q11']}}</td>
+    </tr>
+    <tr>
+        <td><strong>Q<sub>1.2</sub></strong></td>
+        <td class="border">{{g.raster['Aufgabenfeld I']['Deutsch']['Q12'] if g.raster['Aufgabenfeld I']['Deutsch']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Englisch']['Q12'] if g.raster['Aufgabenfeld I']['Englisch']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Französisch']['Q12'] if g.raster['Aufgabenfeld I']['Französisch']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Latein']['Q12'] if g.raster['Aufgabenfeld I']['Latein']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Spanisch']['Q12'] if g.raster['Aufgabenfeld I']['Spanisch']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Russisch']['Q12'] if g.raster['Aufgabenfeld I']['Russisch']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Türkisch']['Q12'] if g.raster['Aufgabenfeld I']['Türkisch']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q12'] if g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Kunst']['Q12'] if g.raster['Aufgabenfeld I']['Kunst']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Musik']['Q12'] if g.raster['Aufgabenfeld I']['Musik']['Q12']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld II']['Geschichte']['Q12'] if g.raster['Aufgabenfeld II']['Geschichte']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Politik']['Q12'] if g.raster['Aufgabenfeld II']['Politik']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Geographie']['Q12'] if g.raster['Aufgabenfeld II']['Geographie']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Pädagogik']['Q12'] if g.raster['Aufgabenfeld II']['Pädagogik']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Psychologie']['Q12'] if g.raster['Aufgabenfeld II']['Psychologie']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Religion']['Q12'] if g.raster['Aufgabenfeld II']['Religion']['Q12']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld III']['Mathe']['Q12'] if g.raster['Aufgabenfeld III']['Mathe']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Physik']['Q12'] if g.raster['Aufgabenfeld III']['Physik']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Chemie']['Q12'] if g.raster['Aufgabenfeld III']['Chemie']['Q12']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Biologie']['Q12'] if g.raster['Aufgabenfeld III']['Biologie']['Q12']}}</td>
+        <td class="border">{{g.raster['o. A.']['Informatik']['Q12'] if g.raster['o. A.']['Informatik']['Q12']}}</td>
+        <td class="border">{{g.raster['Sport']['Praxis']['Q12'] if g.raster['Sport']['Praxis']['Q12']}}</td>
+        <td>{{g.raster['Sport']['Theorie']['Q12'] if g.raster['Sport']['Theorie']['Q12']}}</td>
+        <td class="border">{{g.raster['Lernzeit']['Methoden']['Q12'] if g.raster['Lernzeit']['Methoden']['Q12']}}</td>
+        <td>{{g.raster['Lernzeit']['Selbstlernzeit']['Q12'] if g.raster['Lernzeit']['Selbstlernzeit']['Q12']}}</td>
+        <td>{{g.raster['Lernzeit']['Projektstunden']['Q12'] if g.raster['Lernzeit']['Projektstunden']['Q12']}}</td>
+        <td class="border">{{g.stundensumme['q12']}}</td>
+    </tr>
+    <tr class="spacer">
+        <td colspan="28"></td>
+    </tr>
+    <tr>
+        <td><strong>Q<sub>2.1</sub></strong></td>
+        <td class="border">{{g.raster['Aufgabenfeld I']['Deutsch']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Englisch']['Q21'] if g.raster['Aufgabenfeld I']['Englisch']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Französisch']['Q21'] if g.raster['Aufgabenfeld I']['Französisch']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Latein']['Q21'] if g.raster['Aufgabenfeld I']['Latein']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Spanisch']['Q21'] if g.raster['Aufgabenfeld I']['Spanisch']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Russisch']['Q21'] if g.raster['Aufgabenfeld I']['Russisch']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Türkisch']['Q21'] if g.raster['Aufgabenfeld I']['Türkisch']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q21'] if g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Kunst']['Q21'] if g.raster['Aufgabenfeld I']['Kunst']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Musik']['Q21'] if g.raster['Aufgabenfeld I']['Musik']['Q21']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld II']['Geschichte']['Q21'] if g.raster['Aufgabenfeld II']['Geschichte']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Politik']['Q21'] if g.raster['Aufgabenfeld II']['Politik']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Geographie']['Q21'] if g.raster['Aufgabenfeld II']['Geographie']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Pädagogik']['Q21'] if g.raster['Aufgabenfeld II']['Pädagogik']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Psychologie']['Q21'] if g.raster['Aufgabenfeld II']['Psychologie']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Religion']['Q21'] if g.raster['Aufgabenfeld II']['Religion']['Q21']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld III']['Mathe']['Q21'] if g.raster['Aufgabenfeld III']['Mathe']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Physik']['Q21'] if g.raster['Aufgabenfeld III']['Physik']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Chemie']['Q21'] if g.raster['Aufgabenfeld III']['Chemie']['Q21']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Biologie']['Q21'] if g.raster['Aufgabenfeld III']['Biologie']['Q21']}}</td>
+        <td class="border">{{g.raster['o. A.']['Informatik']['Q21'] if g.raster['o. A.']['Informatik']['Q21']}}</td>
+        <td class="border">{{g.raster['Sport']['Praxis']['Q21'] if g.raster['Sport']['Praxis']['Q21']}}</td>
+        <td>{{g.raster['Sport']['Theorie']['Q21'] if g.raster['Sport']['Theorie']['Q21']}}</td>
+        <td class="border">{{g.raster['Lernzeit']['Methoden']['Q21'] if g.raster['Lernzeit']['Methoden']['Q21']}}</td>
+        <td>{{g.raster['Lernzeit']['Selbstlernzeit']['Q21'] if g.raster['Lernzeit']['Selbstlernzeit']['Q21']}}</td>
+        <td>{{g.raster['Lernzeit']['Projektstunden']['Q21'] if g.raster['Lernzeit']['Projektstunden']['Q21']}}</td>
+        <td class="border">{{g.stundensumme['q21']}}</td>
+    </tr>
+    <tr>
+        <td><strong>Q<sub>2.2</sub></strong></td>
+        <td class="border">{{g.raster['Aufgabenfeld I']['Deutsch']['Q22'] if g.raster['Aufgabenfeld I']['Deutsch']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Englisch']['Q22'] if g.raster['Aufgabenfeld I']['Englisch']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Französisch']['Q22'] if g.raster['Aufgabenfeld I']['Französisch']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Latein']['Q22'] if g.raster['Aufgabenfeld I']['Latein']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Spanisch']['Q22'] if g.raster['Aufgabenfeld I']['Spanisch']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Russisch']['Q22'] if g.raster['Aufgabenfeld I']['Russisch']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Türkisch']['Q22'] if g.raster['Aufgabenfeld I']['Türkisch']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q22'] if g.raster['Aufgabenfeld I']['Darstellendes Spiel']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Kunst']['Q22'] if g.raster['Aufgabenfeld I']['Kunst']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld I']['Musik']['Q22'] if g.raster['Aufgabenfeld I']['Musik']['Q22']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld II']['Geschichte']['Q22'] if g.raster['Aufgabenfeld II']['Geschichte']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Politik']['Q22'] if g.raster['Aufgabenfeld II']['Politik']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Geographie']['Q22'] if g.raster['Aufgabenfeld II']['Geographie']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Pädagogik']['Q22'] if g.raster['Aufgabenfeld II']['Pädagogik']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Psychologie']['Q22'] if g.raster['Aufgabenfeld II']['Psychologie']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld II']['Religion']['Q22'] if g.raster['Aufgabenfeld II']['Religion']['Q22']}}</td>
+        <td class="border">{{g.raster['Aufgabenfeld III']['Mathe']['Q22'] if g.raster['Aufgabenfeld III']['Mathe']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Physik']['Q22'] if g.raster['Aufgabenfeld III']['Physik']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Chemie']['Q22'] if g.raster['Aufgabenfeld III']['Chemie']['Q22']}}</td>
+        <td>{{g.raster['Aufgabenfeld III']['Biologie']['Q22'] if g.raster['Aufgabenfeld III']['Biologie']['Q22']}}</td>
+        <td class="border">{{g.raster['o. A.']['Informatik']['Q22'] if g.raster['o. A.']['Informatik']['Q22']}}</td>
+        <td class="border">{{g.raster['Sport']['Praxis']['Q22'] if g.raster['Sport']['Praxis']['Q22']}}</td>
+        <td>{{g.raster['Sport']['Theorie']['Q22'] if g.raster['Sport']['Theorie']['Q22']}}</td>
+        <td class="border">{{g.raster['Lernzeit']['Methoden']['Q22'] if g.raster['Lernzeit']['Methoden']['Q22']}}</td>
+        <td>{{g.raster['Lernzeit']['Selbstlernzeit']['Q22'] if g.raster['Lernzeit']['Selbstlernzeit']['Q22']}}</td>
+        <td>{{g.raster['Lernzeit']['Projektstunden']['Q22'] if g.raster['Lernzeit']['Projektstunden']['Q22']}}</td>
+        <td class="border">{{g.stundensumme['q22']}}</td>
+    </tr>
+    <tr class="spacer">
+        <td colspan="27" class="right">Stundensumme Q-Phase (mind. <strong>124 h</strong>)</td>
+        <td class="border-all">{{g.stundensumme['q_phase']}}</td>
+    </tr>
+    <tr>
+        <td><strong>A</strong></td>
+        <td class="border">{% if 'deu' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'eng' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'fra' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'lat' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'spa' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'rus' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'tur' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'dar' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'kun' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'mus' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td class="border">{% if 'ges' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'pol' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'geo' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'pae' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'psy' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'rel' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td class="border">{% if 'mat' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'phy' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'che' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'bio' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td class="border">{% if 'inf' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td class="border">{% if 'spx' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td>{% if 'sth' in g.pruefungsfaecher %}X{% endif %}</td>
+        <td colspan="4" class="border"></td>
+    </tr>
+</table>
+
+<div id="footer">
+    <div id="sign">
+        <div id="sign-student">
+        Unterschrift Schüler/in: Ü-Plan erhalten
+        </div>
+        <div id="sign-parent">
+            Datum, Unterschrift: Erziehungsberechtigte/r
+        </div>
+    </div>
+
+    <div id="generator">
+        <small>Created with Schiller Online | Code {{g.token}}</small>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

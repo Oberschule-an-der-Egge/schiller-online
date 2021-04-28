@@ -1,0 +1,13 @@
+html {
+    background-color: red;
+    background: url("../img/nyancat.gif");
+}
+
+body {
+    background-color: transparent;
+}
+
+#logo {
+    color: #fff;
+    font-weight: bold;
+}

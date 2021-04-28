@@ -1,0 +1,125 @@
+
+{% macro text_field(name, label=None) %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            {% if label %}
+                <label class="input-group-text" for="{{name}}">{{label}}</label>
+            {% else %}
+                <label class="input-group-text" for="{{name}}">{{name|capitalize}}</label>
+            {% endif %}
+        </div>
+        {% if request.form.get(name) %}
+            <input type="text" class="form-control" aria-label="{{name}}" id="{{name}}" name="{{name}}" value="{{ request.form.get(name) }}">
+        {% else %}
+            <input type="text" class="form-control" aria-label="{{name}}" id="{{name}}" name="{{name}}">
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro select_field(name, options, question=None, label=None, small=None, group_id=None, disabled=False) %}
+
+    {% if question %}
+    <div class="form-group mb-4" id="{{group_id}}">
+        <label>
+            {{question}}
+            {% if small %}<br /><small class="text-muted">{{small}}</small>{% endif %}
+        </label>
+    {% else %}
+    <div class="input-group mb-3" id="{{group_id}}">
+        <div class="input-group-prepend">
+            {% if label %}
+                <label class="input-group-text" for="{{name}}">{{label}}</label>
+            {% else %}
+                <label class="input-group-text" for="{{name}}">{{name|capitalize}}</label>
+            {% endif %}
+        </div>
+    {% endif%}
+        <select class="custom-select" id="{{name}}" name="{{name}}" {% if disabled and not request.form.get(name) %}disabled{% endif %}>
+            {% if request.form.get(name) %}
+                <option value="">Auswählen...</option>
+                {% for value, option in options.items() %}
+                    {% if value == request.form.get(name) %}
+                        <option value="{{value}}" selected>{{option}}</option>
+                    {% else %}
+                        <option value="{{value}}">{{option}}</option>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <option value="" selected>Auswählen...</option>
+                {% for value, option in options.items() %}
+                    <option value="{{value}}">{{option}}</option>
+                {% endfor %}
+          {% endif %}
+      </select>
+    </div>
+{% endmacro %}
+
+
+{% macro select_group_field(name, options, label=None, group_id=None, disabled=False, selected=None) %}
+
+    {% if question %}
+    <div class="form-group mb-4" id="{{group_id}}">
+        <label>
+            {{question}}
+            {% if small %}<br /><small class="text-muted">{{small}}</small>{% endif %}
+        </label>
+    {% else %}
+    <div class="input-group mb-3" id="{{group_id}}">
+        <div class="input-group-prepend">
+            {% if label %}
+                <label class="input-group-text" for="{{name}}">{{label}}</label>
+            {% else %}
+                <label class="input-group-text" for="{{name}}">{{name|capitalize}}</label>
+            {% endif %}
+        </div>
+    {% endif%}
+        <select class="custom-select" id="{{name}}" name="{{name}}" {% if disabled and not request.form.get(name) %}disabled{% endif %}>
+            {% if request.form.get(name) %}
+                <option value="">Auswählen...</option>
+                {% for feld, faecher in options.items() %}
+                <optgroup label="{{feld}}">
+                    {% for fach_long, fach_short in faecher.items() %}
+                        {% if fach == request.form.get(name) %}
+                            <option value="{{fach_short}}" selected>{{fach_long}}</option>
+                        {% else %}
+                            <option value="{{fach_short}}">{{fach_long}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </optgroup>
+                {% endfor %}
+            {% else %}
+                <option value="" selected>Auswählen...</option>
+                {% for feld, faecher in options.items() %}
+                <optgroup label="{{feld}}">
+                    {% for fach_long, fach_short in faecher.items() %}
+                        {% if fach == selected %}
+                            <option value="{{fach_short}}" selected>{{fach_long}}</option>
+                        {% else %}
+                            <option value="{{fach_short}}">{{fach_long}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </optgroup>
+                {% endfor %}
+          {% endif %}
+      </select>
+    </div>
+{% endmacro %}
+
+{% macro radio_field(name, question, options={'ja':'Ja', 'nein':'Nein'}, small=None, group_id='', hidden=False) %}
+    <div class="form-group mb-4" id="{{group_id}}" {% if hidden %}style="display: none;"{% endif %}>
+        <label>
+            {{question}}
+            {% if small %}<br /><small class="text-muted">{{small}}</small>{% endif %}
+        </label>
+        {% for value, option in options.items() %}
+            <div class="form-check">
+                {% if request.form.get(name) == value %}
+                <input class="form-check-input" type="radio" name="{{name}}" id="{{name+'_'+loop.index|string}}" value="{{value}}" checked>
+                {% else %}
+                <input class="form-check-input" type="radio" name="{{name}}" id="{{name+'_'+loop.index|string}}" value="{{value}}">
+                {% endif %}
+                <label class="form-check-label" for="{{name+'_'+loop.index|string}}">{{option}}</label>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

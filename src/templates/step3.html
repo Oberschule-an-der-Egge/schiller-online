@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mb-5">
+    <div class="text-center" style="width: 83%">
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">Schritt 3 (40%)</div>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+
+    {% include 'abfragen/informatik.html' %}
+
+    {% include 'abfragen/geschichtepolitik.html' %}
+
+    {% include 'abfragen/psychologie.html' %}
+
+    {% if g.profilbuchstabe in ['A', 'B', 'D'] and g.freierlk != 'pae' %}
+        {% include 'abfragen/paedagogik.html' %}
+    {% endif %}
+
+    {% include 'abfragen/geographie.html' %}
+
+    <div class="text-center mt-4 mb-5">
+        <button type="submit" class="btn btn-primary">Weiter zu Schritt 4</button>
+    </div>
+
+</form>
+
+{% endblock %}
