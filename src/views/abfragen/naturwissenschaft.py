@@ -52,7 +52,7 @@ def process():
     q11_nw2 = radio(request, 'q11_nw2', ignore_error)  # Profil D wählt Q11 nicht aus
     q21_nw2 = radio(request, 'q21_nw2', ignore_error)
 
-    if e11_nw1 == e11_nw2:
+    if (e11_nw1 == e11_nw2) or (e12_nw1 == e12_nw2):
         error.append('NaWi 1 und NaWi 2 müssen sich unterscheiden.')
 
     if not error:
