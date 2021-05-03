@@ -10,7 +10,7 @@ def create_pdf(filename):
     output_path = current_app.config['OUTPUT_PATH']
     filename_html = '{}.html'.format(filename)
     filename_pdf = '{}.pdf'.format(filename)
-    filepath_html = os.path.join('output', filename_html)
+    filepath_html = os.path.join(output_path, filename_html)
     filepath_pdf = os.path.join(output_path, filename_pdf)
 
     create_html()
