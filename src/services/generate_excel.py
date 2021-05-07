@@ -93,8 +93,8 @@ def workbook_generieren(
     worksheet.set_landscape()
 
     # Formatierungen definieren:
-    worksheet.set_column('A:A', 11.5)
-    worksheet.set_column('AB:AB', 11.5)
+    worksheet.set_column('A:A', 11.25)
+    worksheet.set_column('AB:AB', 11.25)
     worksheet.set_column('B:AA', 3)
     worksheet.set_row(3, 58)
     worksheet.set_row(1, 24)
@@ -271,14 +271,14 @@ def workbook_generieren(
     worksheet.write("R18", "________________________________________________")
     worksheet.write("A19", "Unterschrift Schüler/in: Ü-Plan erhalten")
     worksheet.write("R19", "Datum, Unterschrift: Erziehungsberechtigte/r")
-
+    """
     #Hinweis für Übermittlung des Plans mergen und eintragen:
     worksheet.merge_range("A21:AB21", "Senden Sie einen unterschriebenen Scan dieser Tabelle bitte umgehend an:"
                                       " Christopher.Driebe@schulverwaltung.bremen.de", zentriertklein)
     worksheet.merge_range("A22:AB22", "Postalisch können Sie den Plan an folgende Adresse übermitteln:"
                                       " Oberschule an der Egge; c/o Christopher Driebe; Eggestedter Strasse 20;"
                                       " 28779 Bremen", zentriertklein)
-
+    """
 
     # Einfügen der Mindeststundenzahlen in die Tabelle
     worksheet.write("U8", "Stundensumme E-Phase (mind. 70h)", pflichstundenformatierung)
