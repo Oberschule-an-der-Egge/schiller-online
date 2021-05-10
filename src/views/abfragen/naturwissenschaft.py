@@ -49,11 +49,17 @@ def process():
     e11_nw2 = select(request, 'e11_nw2', error)
     e12_nw1 = select(request, 'e12_nw1', ignore_error)
     e12_nw2 = select(request, 'e12_nw2', ignore_error)
-    q11_nw2 = radio(request, 'q11_nw2', ignore_error)  # Profil D wählt Q11 nicht aus
+    q11_nw2 = radio(request, 'q11_nw2', ignore_error)  # Profil D (Bio) wählt Q11 nicht aus
     q21_nw2 = radio(request, 'q21_nw2', ignore_error)
 
-    if (e11_nw1 == e11_nw2) or (e12_nw1 == e12_nw2):
+    if e11_nw1 == e11_nw2:
         error.append('NaWi 1 und NaWi 2 müssen sich unterscheiden.')
+
+    if profilbuchstabe != 'D':
+        if e12_nw1 == e12_nw2:
+            error.append('NaWi 1 und NaWi 2 müssen sich unterscheiden.')
+        if q11_nw2 is None:
+            error.append('Q11 NaWi 2 muss ausgefüllt sein.')
 
     if not error:
         update_raster(['e11'], fach=e11_nw1)
@@ -69,10 +75,6 @@ def process():
         if e12_nw1 is not None and e12_nw2 is not None:
             update_raster(['e12'], fach=e12_nw1)
             update_raster(['e12'], fach=e12_nw2)
-
-    if profilbuchstabe != 'D' and q11_nw2 is None:
-        msg = 'Q11 NaWi 2 muss ausgefüllt sein.'
-        error.append(msg)
 
     if q11_nw2 and not error:
         update_raster(['q11', 'q12'], fach=e12_nw2)
